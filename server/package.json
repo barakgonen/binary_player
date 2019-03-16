@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/barakgonen/binary_player#readme",
   "dependencies": {
+    "body-parser": "^1.18.3",
     "concurrently": "^4.1.0",
     "express": "^4.16.4"
   }

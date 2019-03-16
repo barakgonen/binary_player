@@ -1,24 +1,36 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
-
+import InputForm from './components/form';
+import { Card, Button, CardImg, CardTitle, CardText, CardColumns,
+  CardSubtitle, CardBody } from 'reactstrap';
 class App extends Component {
+  constructor(){
+    super();
+    this.state = {
+      interfacesConfig : []
+    }
+  }
+  componentDidMount(){
+    let url = "http://localhost:3001/";
+    fetch(url, {
+      method: "GET", // *GET, POST, PUT, DELETE, etc.
+      mode: "cors", // no-cors, cors, *same-origin
+      cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+      credentials: "same-origin", // include, *same-origin, omit
+      headers: {
+          "Content-Type": "application/json"
+      },
+      redirect: "follow", // manual, *follow, error
+      referrer: "no-referrer"
+  }
+  )      .then(response => response.json())
+  .then(data => this.setState({ interfacesConfig:data['interfaces-configuration'] }));
+  }
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p> BAKBAK IS IN THE HOUSE! </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <CardColumns>
+        {this.state.interfacesConfig.map((interfaceData)=>
+          <InputForm interfaceName={interfaceData.interfaceName} targetPort={interfaceData.targetPort}></InputForm>)}
+      </CardColumns>
     );
   }
 }

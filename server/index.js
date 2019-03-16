@@ -59,23 +59,21 @@ app.post("/", function(req, res){
         check things:
         1. Is server reachable, by ping?
     */
-    //res.send(req.body);  
     console.log("Opening socket for writing");
-
     let pathToRecordFile = getRecordPath(interfaceName);
     console.log("Playing record from the following path: " + pathToRecordFile);
     let binaryRecordEncoding = 'utf8';
     fs.readFile(pathToRecordFile, binaryRecordEncoding, async function(err, contents) {
         let client = new net.Socket();
-        client.setTimeout(1000);
+        client.setTimeout(10000);
         client.connect(targetPort, serverIP, async function() {
             await client.write(contents);
             console.log(contents);
             res.send("check");
+            client.destroy();
         })
         client.on('end',function () {
             console.log('Client socket disconnect. ');
-            client.destroy();
         });
     
         client.on('timeout', function () {
@@ -85,6 +83,7 @@ app.post("/", function(req, res){
         });
         client.on('error', function (err) {
             console.error(JSON.stringify(err));
+            res.send("timeout");
             client.destroy();
         });
     })

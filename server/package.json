@@ -1,0 +1,24 @@
+{
+  "name": "binary_player",
+  "version": "1.0.0",
+  "description": "BinaryPlayer To Remote Server",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/barakgonen/binary_player.git"
+  },
+  "author": "GonenBros",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/barakgonen/binary_player/issues"
+  },
+  "homepage": "https://github.com/barakgonen/binary_player#readme",
+  "dependencies": {
+    "concurrently": "^4.1.0",
+    "express": "^4.16.4"
+  }
+}
